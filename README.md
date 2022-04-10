@@ -1,2 +1,21 @@
-# MD-Simulation-LiquidFilm
-Surface structure and surface tension of a liquid
+# MD Simulation - LiquidFilm
+
+This repository contains the codes for the student project of the course [FS22 Statistical Physics and Computer Simulation  [529-0483-00L]](http://www.vvz.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lang=en&semkez=2022S&ansicht=STUDPLANINFO&lerneinheitId=158200&) at [ETH Zurich](https://ethz.ch/en.html).
+
+| Content | Topic |
+| --- | --- |
+| Student Project | Molecular dynamics simulations, implementation of algorithms |
+
+### Project Description
+
+- Content: MD simulation of a liquid film
+    - Surface structure and surface tension of a liquid
+- Duration:  15.04 - 24.05.2022
+- Presentation:  31.05.2022
+
+➡️ for more see *[Project Wiki](https://github.com/youwuyou/MD-Simulation-LiquidFilm/wiki/Documentation)*
+
+### Contributors
+
+- Mingjie Li
+- You Wu
