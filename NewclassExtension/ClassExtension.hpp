@@ -8,18 +8,21 @@ class Calculator{
 
 public:
 
-    Calculator(std::vector<double> veloc): x_(veloc), N_x(veloc.size()){}
+    Calculator(int numberAtoms, int numberMDSteps): N_x(numberAtoms), numMDSteps(numberMDSteps){}
 
-    double average_slow(); 
-    double fluctuation_slow();
+    double average_slow(std::vector<double>& x); 
+    double fluctuation_slow(std::vector<double>& x);
     
     // pair[0]: average, pair[1]:fluctuation
-    std::pair<double, double> AverageFluctuation_fast();
+    std::pair<double, double> AverageFluctuation_fast(std::vector<double>& x);
+
+    //Correlation function
+    std::vector<double> C_direct(std::vector<double>& x);
 
 private:
 
-    std::vector<double> x_;
     int N_x;
+    int numMDSteps;
         
 };
 
