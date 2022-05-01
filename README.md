@@ -8,12 +8,12 @@ This repository contains the codes for the student project of the course [FS22 S
 
 ### Project Description
 
-- Content:Analysis of MD trajectories
+- Content: Analysis of MD trajectories
     - Computation of correlation functions using FFT
 - Duration:  12.04 - 24.05.2022
 - Presentation:  31.05.2022
 
-➡️ for more see *[Project Wiki](https://github.com/youwuyou/MD-Simulation-LiquidFilm/wiki/Documentation)*
+➡️ for more see *[Project Wiki](https://github.com/youwuyou/Analysis-of-MD-trajectories/wiki)*
 
 ### Contributors
 
