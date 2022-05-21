@@ -30,6 +30,10 @@ set(headers
         lib/PeriodicBoundaryConditions.h
         lib/CenterOfMassCalculator.h
         lib/RandomNumberGenerator.h
+
+        # extension to the original MD program
+        lib/CalculatorExtension.h
+        lib/CorrelationExtension.h
         )
 
 set(sources
@@ -49,11 +53,27 @@ set(sources
         lib/PeriodicBoundaryConditions.cpp
         lib/CenterOfMassCalculator.cpp
         lib/RandomNumberGenerator.cpp
+
+        # extension
+        lib/CalculatorExtension.cpp
+        lib/CorrelationExtension.cpp
         )
 
+
 add_library(mdatomLib ${sources} ${headers})
+
+# needs EIGEN!
+find_package(Eigen3)
+if(${EIGEN3_FOUND})
+        target_include_directories(mdatomLib PUBLIC ${EIGEN3_INCLUDE_DIRS})
+        target_link_libraries(mdatomLib ${EIGEN3_LIBRARIES})
+else()
+        message("EIGEN not found")
+endif()
+
 set_target_properties(mdatomLib PROPERTIES POSITION_INDEPENDENT_CODE ON)
 target_include_directories(mdatomLib PUBLIC lib)
+
 
 add_executable(mdatom main.cpp)
 target_link_libraries(mdatom mdatomLib)
