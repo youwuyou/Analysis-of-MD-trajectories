@@ -53,6 +53,14 @@ void Calculator::indexIncrement(){
     ++index;
 }
 
+void Calculator::set_duration(double time){
+    duration_ns += time;
+}
+
+ void Calculator::print_timing(std::ostream &out) const{
+     out << " Time spent for average and fluctuation calculation: " << std::setprecision(3) << duration_ns << " nanosec" << std::endl;
+ }
+
 
 
 /****************  PRIVATE *****************/

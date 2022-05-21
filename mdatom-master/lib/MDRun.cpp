@@ -3,7 +3,7 @@
 #include "CenterOfMassCalculator.h"
 #include "TrajectoryFileWriter.h"
 #include <cmath>
-
+#include <chrono>
 
 MDRun::MDRun(const MDParameters &parameters, MDRunOutput &out, TrajectoryFileWriter &trajectoryFileWriter)
         : par(parameters),
@@ -132,12 +132,15 @@ void MDRun::performStep(std::vector<double> &positions, std::vector<double> &vel
     // }
 
     //implemented average and fluctuation
+    std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
     for (int m = 0; m < numberProperties; m++) {
        calculator.computeAverageFluctuation(properties[m], m);
     }
 
     calculator.indexIncrement(); // increase the index when using inaccurate formula
-
+    std::chrono::system_clock::time_point stop = std::chrono::system_clock::now();
+    auto duration_ms = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count();
+    calculator.set_duration(duration_ms);
 
     printOutputForStep(positions, velocities, nstep, time);
 }
@@ -173,22 +176,27 @@ void MDRun::printOutputForStep(const std::vector<double> &positions, const std::
     }
 }
 
-void MDRun::printAverages(double time, const Calculator& calculator) {
-    double tspan = par.numberMDSteps;
+void MDRun::printAverages(double time, Calculator& calculator) {
+    //double tspan = par.numberMDSteps;
     // for (int m = 0; m < numberProperties; m++){
     //     averages[m] = averages[m] / tspan;
     //     fluctuations[m] = std::sqrt(std::abs(fluctuations[m] / tspan - averages[m] * averages[m]));
     // }
 
     //implemented average and fluctuation
+    std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
     for (int m = 0; m < numberProperties; m++) {
         averages[m] = calculator.getAverage(m);
         fluctuations[m] = calculator.getFluctuation(m);
     }
+    std::chrono::system_clock::time_point stop = std::chrono::system_clock::now();
+    auto duration_ms = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count();
+    calculator.set_duration(duration_ms);
 
     output.printAverages(par.numberMDSteps, time, averages);
     output.printRMSFluctuations(par.numberMDSteps, time, fluctuations);
     output.printAverageAndRMSTemperature(averages[1] / fac, fluctuations[1] / fac);
+    calculator.print_timing(std::cout);
 }
 
 const AveragedRadialDistribution &MDRun::getRadialDistribution() const {

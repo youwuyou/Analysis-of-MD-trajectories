@@ -35,7 +35,7 @@ private:
     void printOutputForStep(const std::vector<double> &positions, const std::vector<double> &velocities, int nstep,
                             double time);
 
-    void printAverages(double time, const Calculator& calculator);
+    void printAverages(double time, Calculator& calculator);
 
     const MDParameters &par;
     MDRunOutput &output;
