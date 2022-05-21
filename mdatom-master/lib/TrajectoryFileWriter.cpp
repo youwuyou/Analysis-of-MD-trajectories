@@ -9,12 +9,16 @@
 
 using namespace std;
 
+/****************************  ORIGINAL *****************************/
+// default constructor
 TrajectoryFileWriter::TrajectoryFileWriter(const MDParameters &parameters,
                                            std::string finalCoordFilename,
                                            std::string trajFilename)
         : par(parameters),
           finalCoordinatesFilename(std::move(finalCoordFilename)),
-          trajectoryCoordinatesFilename(std::move(trajFilename)) {
+          trajectoryCoordinatesFilename(std::move(trajFilename)) ,
+          trajectoryVelocitiesFilename(""),
+          counter(0){
 }
 
 void TrajectoryFileWriter::writeBeforeRun() {
@@ -102,4 +106,63 @@ void TrajectoryFileWriter::writeOutTrajectoryStepInAsciiForm(const std::vector<d
         }
         fileFW << endl;
     }
+}
+
+
+/****************************  EXTENDED *****************************/
+// used for recording velocities for further correlation computation
+TrajectoryFileWriter::TrajectoryFileWriter(const MDParameters &parameters,
+                                           std::string finalCoordFilename,
+                                           std::string trajFilename,
+                                           std::string trajVeloFilename)
+        : par(parameters),
+          finalCoordinatesFilename(std::move(finalCoordFilename)),
+          trajectoryCoordinatesFilename(std::move(trajFilename)) ,
+          trajectoryVelocitiesFilename(std::move(trajVeloFilename)),
+          counter(0){
+}
+
+
+
+/****************  PUBLIC *****************/
+
+void TrajectoryFileWriter::writeOutVelocityStep(const std::vector<double> &velocities) {
+    if (par.trajectoryOutput) {
+        if (par.trajectoryOutputFormat == TrajectoryFileFormat::binary) {
+            writeOutVelocityInBinaryForm(velocities);
+        } else if (par.trajectoryOutputFormat == TrajectoryFileFormat::ascii) {
+            writeOutVelocityInAsciiForm(velocities);
+        }
+    }
+}
+
+/****************  PRIVATE *****************/
+
+void TrajectoryFileWriter::writeOutVelocityInBinaryForm(const std::vector<double> &velocities) {
+    ofstream fileBW;
+    fileBW.open(trajectoryVelocitiesFilename, ios::out | ios::app | ios::binary);
+    if (fileBW.bad()) {
+        throw runtime_error("I/O ERROR: cannot write to file: " + trajectoryVelocitiesFilename);
+    }
+    BinaryIO::write(fileBW, velocities);
+}
+
+void TrajectoryFileWriter::writeOutVelocityInAsciiForm(const std::vector<double> &velocities) {
+    ofstream fileFW;
+    fileFW.open(trajectoryVelocitiesFilename, ios::out | ios::app);
+    if (fileFW.bad()) {
+        throw runtime_error("I/O ERROR: cannot write to file: " + trajectoryVelocitiesFilename);
+    }
+    int ntot = 3 * par.numberAtoms;   // 3 components for the velocity vector of each atom
+    for (int i = 0; i < ntot; i += 3) {
+        fileFW << counter << setw(10) << i - 3;   // divide by 3 for writting down current no.atom
+                                                  // i = no.atom in the current step
+
+        for (int j = i; (j < i + 3 && j < ntot); j++) {
+            fileFW << setw(10) << velocities[j];
+        }
+        fileFW << endl;
+    }
+
+    ++counter;
 }
