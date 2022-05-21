@@ -70,19 +70,19 @@ void CorrelationCalculator::printCorrelation(){
 
 /****************  PRIVATE *****************/
 // formula 53
-Eigen::VectorXd CorrelationCalculator::getC_i(const Eigen::VectorXd& v) const{
+Eigen::VectorXd CorrelationCalculator::getC_i(const Eigen::VectorXd& v) {
 
     int size = v.size();
 
     // zero padding
-    vec_padded = Eigen::VectorXcd::Zero(2 * size);
+    vec_padded.setZero(2 * size);
     vec_padded.head(size) = v;
 
 
     // helper
     Eigen::FFT<double> fft;
-
     vec_padded = fft.fwd(vec_padded); // applied Fourier matrix on the given vector
+
     auto intermediate = (vec_padded.conjugate()).cwiseProduct(vec_padded).eval(); // no copying using eval
 
 

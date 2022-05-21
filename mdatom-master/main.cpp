@@ -37,9 +37,9 @@ int main(int argc, char *argv[]) {
 
 
     // STAGE 2:computation of the correlation functions
-    MDParameters par = ParameterIO::readParameters(parameterFile); // todo redundant? or type everything in manually?
+    // MDParameters par = ParameterIO::readParameters(parameterFile); // todo redundant? or type everything in manually?
 
-    CorrelationCalculator C_Calculator(par.numMDSteps, par.numberAtoms, par.timeStep);
+    // CorrelationCalculator C_Calculator(par.numMDSteps, par.numberAtoms, par.timeStep);
     // CorrelationCalculator C_Calculator(par.numMDSteps, par.numberAtoms, par.timeStep / par.trajectoryOutputINterval);
 
 

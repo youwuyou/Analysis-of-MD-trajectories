@@ -51,7 +51,7 @@ class CorrelationCalculator{
         double timeStep;
 
 
-        // complex zero padded vector for FFT
+        // zero padded vector for FFT
         Eigen::VectorXcd vec_padded;
 
         // results
@@ -72,7 +72,7 @@ class CorrelationCalculator{
 
 
         /******* private methods ********/
-        Eigen::VectorXd getC_i(const Eigen::VectorXd& v) const;  // helper for formula 53
+        Eigen::VectorXd getC_i(const Eigen::VectorXd& v);  // helper for formula 53
 };
 
 
