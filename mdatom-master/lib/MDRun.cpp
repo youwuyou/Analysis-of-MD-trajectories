@@ -4,6 +4,7 @@
 #include "TrajectoryFileWriter.h"
 #include <cmath>
 
+
 MDRun::MDRun(const MDParameters &parameters, MDRunOutput &out, TrajectoryFileWriter &trajectoryFileWriter)
         : par(parameters),
           output(out),
@@ -24,15 +25,16 @@ void MDRun::run(std::vector<double> &x, std::vector<double> &v) {
     output.printIterationStart();
 
     /* dynamics step */
-    // Calculator calculator(par.numberMDSteps, numberProperties);
-    // calculator.set_mode(true); // is_accurate = true
+    Calculator calculator(par.numberMDSteps, numberProperties);
+    calculator.set_mode(false); // is_accurate = true
+
     double time = par.initialTime;
     for (int nstep = 0; nstep < par.numberMDSteps; nstep++) {
-        performStep(x, v, nstep, time/*, calculator*/);
+        performStep(x, v, nstep, time, calculator);
         time += par.timeStep;
     }
 
-    printAverages(time);
+    printAverages(time, calculator);
 }
 
 void MDRun::initializeVariables() {
@@ -78,7 +80,7 @@ void MDRun::initializeTemperature(const std::vector<double> &velocities) {
     }
 }
 
-void MDRun::performStep(std::vector<double> &positions, std::vector<double> &velocities, int nstep, double time/*, Calculator calculator*/) {
+void MDRun::performStep(std::vector<double> &positions, std::vector<double> &velocities, int nstep, double time, Calculator& calculator) {
     /* put atoms in central periodic box */
     PeriodicBoundaryConditions::recenterAtoms(par.numberAtoms, positions, par.boxSize);
 
@@ -124,15 +126,17 @@ void MDRun::performStep(std::vector<double> &positions, std::vector<double> &vel
     }
 
     /* update arrays for averages and fluctuations */
-    for (int m = 0; m < numberProperties; m++) {
-        averages[m] += properties[m];
-        fluctuations[m] += properties[m] * properties[m];
-    }
+    // for (int m = 0; m < numberProperties; m++) {
+    //     averages[m] += properties[m];
+    //     fluctuations[m] += properties[m] * properties[m];
+    // }
 
     //implemented average and fluctuation
-    /*for (int m = 0; m < numberProperties; m++) {
+    for (int m = 0; m < numberProperties; m++) {
        calculator.computeAverageFluctuation(properties[m], m);
-    }*/
+    }
+
+    calculator.indexIncrement(); // increase the index when using inaccurate formula
 
 
     printOutputForStep(positions, velocities, nstep, time);
@@ -142,6 +146,9 @@ void MDRun::printOutputForStep(const std::vector<double> &positions, const std::
                                double time) {
     if ((nstep + 1) == (nstep + 1) / par.trajectoryOutputInterval * par.trajectoryOutputInterval) {
         trajectoryWriter.writeOutTrajectoryStep(positions);
+
+        // extended for velocties.traj
+        trajectoryWriter.writeOutVelocityStep(velocities);
     }
 
     if (nstep == (nstep + 1) / nhpr * nhpr) {
@@ -166,17 +173,19 @@ void MDRun::printOutputForStep(const std::vector<double> &positions, const std::
     }
 }
 
-void MDRun::printAverages(double time) {
+void MDRun::printAverages(double time, const Calculator& calculator) {
     double tspan = par.numberMDSteps;
-    for (int m = 0; m < numberProperties; m++) {
-        averages[m] = averages[m] / tspan;
-        fluctuations[m] = std::sqrt(std::abs(fluctuations[m] / tspan - averages[m] * averages[m]));
-    }
+    // for (int m = 0; m < numberProperties; m++){
+    //     averages[m] = averages[m] / tspan;
+    //     fluctuations[m] = std::sqrt(std::abs(fluctuations[m] / tspan - averages[m] * averages[m]));
+    // }
+
     //implemented average and fluctuation
-    /*for (int m = 0; m < numberProperties; m++) {
+    for (int m = 0; m < numberProperties; m++) {
         averages[m] = calculator.getAverage(m);
         fluctuations[m] = calculator.getFluctuation(m);
-    }*/
+    }
+
     output.printAverages(par.numberMDSteps, time, averages);
     output.printRMSFluctuations(par.numberMDSteps, time, fluctuations);
     output.printAverageAndRMSTemperature(averages[1] / fac, fluctuations[1] / fac);

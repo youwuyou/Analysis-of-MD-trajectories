@@ -6,6 +6,7 @@
 #include "AveragedRadialDistribution.h"
 #include "TrajectoryFileWriter.h"
 #include "InteractionCalculator.h"
+#include "CalculatorExtension.h"
 #include <array>
 
 /*!
@@ -29,12 +30,12 @@ private:
 
     void initializeTemperature(const std::vector<double> &velocities);
 
-    void performStep(std::vector<double> &positions, std::vector<double> &velocities, int nstep, double time);
+    void performStep(std::vector<double> &positions, std::vector<double> &velocities, int nstep, double time, Calculator& calculator);
 
     void printOutputForStep(const std::vector<double> &positions, const std::vector<double> &velocities, int nstep,
                             double time);
 
-    void printAverages(double time);
+    void printAverages(double time, const Calculator& calculator);
 
     const MDParameters &par;
     MDRunOutput &output;
