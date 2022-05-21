@@ -6,6 +6,8 @@
 #include "ParameterValidityChecker.h"
 #include "RandomNumberGenerator.h"
 
+
+
 MDSimulation::MDSimulation(std::ostream &outputStream)
         : output(outputStream) {
 }
@@ -44,7 +46,11 @@ void MDSimulation::initializeCoordinatesAndVelocities(const std::string &coordin
 }
 
 void MDSimulation::executeMDIterations() {
-    TrajectoryFileWriter trajectoryWriter(parameters, "coords.final", "coords.traj");
+    // TrajectoryFileWriter trajectoryWriter(parameters, "coords.final", "coords.traj");
+
+    // extended version - velocities.traj for further analysis
+    TrajectoryFileWriter trajectoryWriter(parameters, "coords.final", "coords.traj", "velocities.traj");
+
     trajectoryWriter.writeBeforeRun();
 
     timer.mdStart();

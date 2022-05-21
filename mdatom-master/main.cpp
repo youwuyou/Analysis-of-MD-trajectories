@@ -8,6 +8,9 @@
  */
 
 int main(int argc, char *argv[]) {
+
+    // STAGE 1: Running the MD program, recording properties
+
     switch (argc) {
         case 2:
             break;
@@ -31,6 +34,16 @@ int main(int argc, char *argv[]) {
         std::cerr << e.what();
         return 1;
     }
+
+
+    // STAGE 2:computation of the correlation functions
+    MDParameters par = ParameterIO::readParameters(parameterFile); // todo redundant? or type everything in manually?
+
+    CorrelationCalculator C_Calculator(par.numMDSteps, par.numberAtoms, par.timeStep);
+    // CorrelationCalculator C_Calculator(par.numMDSteps, par.numberAtoms, par.timeStep / par.trajectoryOutputINterval);
+
+
+
 
     return 0;
 }

@@ -16,7 +16,7 @@ public:
 
     // write contents of an array of data of type double to output stream as binary data.
     //     out    - output stream
-    //     array  - target array
+    //     array  - source array
     static void write(std::ostream &out, const std::vector<double> &array);
 };
 
