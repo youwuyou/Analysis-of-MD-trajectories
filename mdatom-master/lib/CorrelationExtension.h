@@ -31,6 +31,10 @@ class CorrelationCalculator{
             Cx_FFT.setZero(numMDSteps);
             Cy_FFT.setZero(numMDSteps);
             Cz_FFT.setZero(numMDSteps);
+
+
+            divisor.setLinSpaced(numMDSteps, 0, numMDSteps - 1);
+            divisor = Eigen::VectorXd::Constant(numMDSteps, numMDSteps) - divisor;
         }
 
         // computation
