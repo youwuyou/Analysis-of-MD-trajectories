@@ -136,6 +136,37 @@ void TrajectoryFileWriter::writeOutVelocityStep(const std::vector<double> &veloc
     }
 }
 
+// used for output velocities component-wise
+void TrajectoryFileWriter::writeOutVelocityCwise(const std::vector<double> &velocities) {
+    ofstream fileX;
+    ofstream fileY;
+    ofstream fileZ;
+
+
+    fileX.open("velo_x.traj", ios::out | ios::app);
+    if (fileX.bad()) {
+        throw runtime_error("I/O ERROR: cannot write to file: velo_x.traj");
+    }
+
+    fileY.open("velo_y.traj", ios::out | ios::app);
+    if (fileY.bad()) {
+        throw runtime_error("I/O ERROR: cannot write to file: velo_y.traj");
+    }
+
+    fileZ.open("velo_z.traj", ios::out | ios::app);
+    if (fileZ.bad()) {
+        throw runtime_error("I/O ERROR: cannot write to file: velo_z.traj");
+    }
+
+
+    int ntot = 3 * par.numberAtoms;   // 3 components for the velocity vector of each atom
+    for (int i = 0; i < ntot; i += 3) {
+            fileX << velocities[i] << endl;
+            fileY << velocities[i+1]<< endl;
+            fileZ << velocities[i+2]<< endl;
+        }
+}
+
 /****************  PRIVATE *****************/
 
 void TrajectoryFileWriter::writeOutVelocityInBinaryForm(const std::vector<double> &velocities) {

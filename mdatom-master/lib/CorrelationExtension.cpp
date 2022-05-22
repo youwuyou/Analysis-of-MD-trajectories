@@ -5,6 +5,7 @@
 // formula 49 - x is some property stored in a matrix while the MD program is running
 void CorrelationCalculator::computeCorrelation_direct(){
 
+    std::cout << "calculating correlation directly" << std::endl;
     // looping through all steps
     double S;
     for(int n = 0; n < numMDSteps; ++n){
@@ -24,6 +25,8 @@ void CorrelationCalculator::computeCorrelation_direct(){
 
 
 void CorrelationCalculator::computeCorrelation_FFT(){
+
+    std::cout << "calculating correlation using FFT" << std::endl;
 
     // looping through all atoms
     for(int k = 0; k < numberAtoms; ++k){
@@ -45,7 +48,10 @@ void CorrelationCalculator::computeCorrelation_FFT(){
 // implement a wrapper reading in the velocities from the velocities.traj file
 void CorrelationCalculator::readInCorrelation(){
 
-    double *data_x, *data_y, *data_z; // vector storing points to 3 raw data arrays
+    std::cout << "Read in data from files storing velocities during MD" << std::endl;
+
+    int lines = numberAtoms * numMDSteps;
+    std::vector<double> data_x(lines), data_y(lines), data_z(lines); // vector storing points to 3 raw data arrays
 
 
     // use the internal file reader to read data, which is stored in columns
@@ -54,25 +60,27 @@ void CorrelationCalculator::readInCorrelation(){
     // get raw data from "velocities.traj"
 
     // reshape the vector into a matrix
-    auto X = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_x, numberAtoms, numMDSteps);
-    auto Y = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_y, numberAtoms, numMDSteps);
-    auto Z = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_z, numberAtoms, numMDSteps);
+    auto X = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_x.data(), numberAtoms, numMDSteps);
+    auto Y = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_y.data(), numberAtoms, numMDSteps);
+    auto Z = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_z.data(), numberAtoms, numMDSteps);
 
 
     // store matrices X, Y, Z blockwise using a big data matrix "Mat"
     Mat << X, Y, Z;
+    std::cout << "successfully initialized the big data matrix" << std::endl;
+
 }
 
 
-void CorrelationCalculator::getDataFromFile(double *data_x,
-                                                double *data_y,
-                                                    double *data_z){
+void CorrelationCalculator::getDataFromFile(std::vector<double>& data_x,
+                                                std::vector<double>& data_y,
+                                                    std::vector<double>& data_z){
 
     BinaryIO input; // class instance for inputting data
-    int lines = numMDSteps * numberAtoms;
 
     // open the "velocities.traj" file
     // create input stream for the cols
+
 
     std::ifstream fin_x;
     fin_x.open("velo_x.traj", std::ios::in);
@@ -92,10 +100,14 @@ void CorrelationCalculator::getDataFromFile(double *data_x,
             throw std::runtime_error("can't open velo_z.traj");
         }
 
-    // read out the data
-    input.readPtr(fin_x, data_x, lines);  // x-component <-> 2nd col
-    input.readPtr(fin_y, data_y, lines);  // y-component <-> 3rd col
-    input.readPtr(fin_z, data_z, lines);  // z-component <-> 4th col
+
+    std::cout << "read in the data" << std::endl;
+
+
+    // read in the data
+    input.read(fin_x, data_x);  // x-component <-> 2nd col
+    input.read(fin_y, data_y);  // y-component <-> 3rd col
+    input.read(fin_z, data_z);  // z-component <-> 4th col
 
 }
 

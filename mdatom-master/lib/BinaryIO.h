@@ -21,7 +21,7 @@ public:
 
 
     // extended
-    static void readPtr(std::istream &in, double* &array, size_t length);
+    static void readPtr(std::istream &in, double* array, size_t length);
 };
 
 

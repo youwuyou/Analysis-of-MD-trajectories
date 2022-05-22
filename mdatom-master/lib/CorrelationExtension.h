@@ -19,7 +19,7 @@ class CorrelationCalculator{
 
         CorrelationCalculator(int steps, int N, double delta_t): numMDSteps(steps), numberAtoms(N), timeStep(delta_t){
 
-            // TODO using read-in function to initialize the data
+            // using read-in function to initialize the data
             Mat = Eigen::MatrixXd::Zero(numberAtoms * 3, numMDSteps);
 
             // C_direct storing the final result
@@ -40,72 +40,11 @@ class CorrelationCalculator{
 
         // read-in
         // implement a wrapper reading in the velocities from the velocities.traj file
-        void readInCorrelation(){
+        void readInCorrelation();
 
-            double *data_x, *data_y, *data_z; // vector storing points to 3 raw data arrays
-
-
-            // use the internal file reader to read data, which is stored in columns
-            getDataFromFile(data_x, data_y, data_z);
-
-            // get raw data from "velocities.traj"
-
-            // reshape the vector into a matrix
-            auto X = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_x, numberAtoms, numMDSteps);
-            auto Y = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_y, numberAtoms, numMDSteps);
-            auto Z = Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic>> (data_z, numberAtoms, numMDSteps);
-
-
-            // store matrices X, Y, Z blockwise using a big data matrix "Mat"
-            Mat << X, Y, Z;
-        }
-
-
-        // TODO: perhaps change the type and see how to read from "velocities.traj"
-        void getDataFromFile(double *data_x,
-                                double *data_y,
-                                    double *data_z);
-
-
-// void readIn(std::vector<double> data, std::string filename)
-// {
-//     std::ifstream fin;
-//     fin.open(filename, std::ios::in);
-//         if (fin.bad()) {
-//             throw std::runtime_error("can't open " + filename);
-//         }
-
-//     double buffer;
-//     int lines = numberAtoms * numMDSteps;
-
-//     for (int i = 0; i < lines; ++i) {
-//         // Read in the velocities
-//         fin >> buffer;
-
-//         // store values in
-//         data.at(i) = buffer;
-//     }
-// }
-
-
-// void BinaryIO::readPtr(std::istream &in, double* &array) {
-//     size_t length = array.size();
-//     in.read(reinterpret_cast<char *>(array), length * sizeof(double));
-// }
-
-
-// void BinaryIO::read(std::istream &in, std::vector<double> &array) {
-//     size_t length = array.size();
-//     in.read(reinterpret_cast<char *>(array.data()), length * sizeof(double));
-// }
-
-
-// void CenterOfMassCalculator::getPosition(double *x) const {
-//     for (int i = 0; i < 3; ++i)
-//         x[i] = xcm[i];
-// }
-
-
+        void getDataFromFile(std::vector<double>& data_x,
+                                    std::vector<double>& data_y,
+                                        std::vector<double>& data_z);
 
         // read-out
         void writeOutCorrelation(const Eigen::VectorXd &C, std::string filename);

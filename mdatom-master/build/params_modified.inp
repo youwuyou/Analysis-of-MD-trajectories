@@ -19,4 +19,4 @@ Sample input file
 #    PropertyPrintingInterval    NumberRadialDistrPoints    RadialDistrCutoffRadius
                             1                        100                        2.5
 #            TrajectoryOutput     TrajectoryOutputFormat   TrajectoryOutputInterval
-                            1                          2                          5
+                            1                          2                          1

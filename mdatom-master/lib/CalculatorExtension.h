@@ -54,7 +54,7 @@ private:
     Eigen::VectorXd S;
     Eigen::VectorXd Q;
     Eigen::VectorXd Ssq; // sum of pow(x_i,2)
-    std::chrono::system_clock::time_point tStart1, tEnd1;
+    // std::chrono::system_clock::time_point tStart1, tEnd1;
     double duration_ns;
 
 

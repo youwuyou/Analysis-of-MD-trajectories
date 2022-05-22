@@ -151,7 +151,10 @@ void MDRun::printOutputForStep(const std::vector<double> &positions, const std::
         trajectoryWriter.writeOutTrajectoryStep(positions);
 
         // extended for velocties.traj
-        trajectoryWriter.writeOutVelocityStep(velocities);
+        // trajectoryWriter.writeOutVelocityStep(velocities);
+
+        // extended for outputting velocity component-wise into 3 files
+        trajectoryWriter.writeOutVelocityCwise(velocities);
     }
 
     if (nstep == (nstep + 1) / nhpr * nhpr) {
