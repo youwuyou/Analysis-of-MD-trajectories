@@ -18,7 +18,7 @@ COMMENT
 #<<COMMENT
 echo "#timesteps  time" > task1_time_inaccurate
 
-for numatm in 1000 2000 4000 10000 20000 50000 70000 100000 1000000 
+for numatm in 1000 2000 4000 10000 20000 #50000 70000 100000 1000000 
 do
 
 	printf "${numatm}" >> task1_time_inaccurate
@@ -31,16 +31,34 @@ do
 done
 #COMMENT
 
+#<<COMMENT
 echo "#timesteps  time" > task2_time_direct
 
-for numatm in 1000 2000 4000 10000 20000 50000 70000 100000 1000000 
+for numatm in 1000 2000 4000 10000 20000 #50000 70000 100000 1000000 
 do
 
 	printf "${numatm}" >> task2_time_direct
 	
-	awk 'NR == 69 { 
-  		print " " $8
+	awk 'NR == 187 { 
+  		print " " $10
   		}' fluctuation_average_${numatm} >> task2_time_direct
   		
 
 done
+#COMMENT
+
+#<<COMMENT
+echo "#timesteps  time" > task2_time_FFT
+
+for numatm in 1000 2000 4000 10000 20000 #50000 70000 100000 1000000 
+do
+
+	printf "${numatm}" >> task2_time_FFT
+	
+	awk 'NR == 189 { 
+  		print " " $10
+  		}' fluctuation_average_${numatm} >> task2_time_FFT
+  		
+
+done
+#COMMENT

@@ -1,7 +1,7 @@
 # Title
 Test 5, 1000 atoms
 #                 NumberAtoms                 AtomicMass                     MDType
-                         1000                          1                          0
+                          100                          1                          0
 #                  BoxSize(x)                 BoxSize(y)                 BoxSize(z)
                        10.436                     10.436                     10.436
 #               NumberMDSteps                InitialTime                   TimeStep
@@ -19,5 +19,5 @@ Test 5, 1000 atoms
 #    PropertyPrintingInterval    NumberRadialDistrPoints    RadialDistrCutoffRadius
           _NumberPrintOutput_                        100                        2.5
 #            TrajectoryOutput     TrajectoryOutputFormat   TrajectoryOutputInterval
-                            0                          2                          5
+                            1                          2                          1
 

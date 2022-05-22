@@ -3,7 +3,7 @@
 #TIMING
 
 #run for different number of steps
-for numatm in 1000 2000 4000 10000 20000 #50000
+for numatm in 10 100 1000 2000 4000 10000 20000 50000
 do
 	
 	#time step = 20 / number of atoms
@@ -19,4 +19,4 @@ do
 
 done
 
-extract_task1_time.sh
+bash extract_task1_time.sh
