@@ -47,8 +47,12 @@ int main(int argc, char *argv[]) {
 
     C_Calculator.readInCorrelation();
 
+    // computation to be benchmarked
     C_Calculator.computeCorrelation_direct();
     C_Calculator.computeCorrelation_FFT();
+
+    // print out result
+    C_Calculator.printCorrelation();
 
 
     return 0;

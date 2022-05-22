@@ -117,7 +117,11 @@ void CorrelationCalculator::getDataFromFile(std::vector<double>& data_x,
 
 void CorrelationCalculator::writeOutCorrelation(const Eigen::VectorXd &C, std::string filename){
     std::ofstream fileFW;
-    fileFW.open("correlations.txt", std::ios::out | std::ios::app);
+
+    // debugging
+    std::cout << "writting out correlations to txt file" << std::endl;
+
+    fileFW.open(filename, std::ios::out | std::ios::app);
     if (fileFW.bad()) {
         throw std::runtime_error("I/O ERROR: cannot write to file: " + filename);
     }
@@ -130,6 +134,7 @@ void CorrelationCalculator::writeOutCorrelation(const Eigen::VectorXd &C, std::s
         fileFW << std::setw(15) << C(i) << "\n";
     }
     fileFW << "\n\n";
+    fileFW.close();
 }
 
 
