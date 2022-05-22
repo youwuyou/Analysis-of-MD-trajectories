@@ -1,4 +1,4 @@
-/home/youwuyou/Workspaces/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/rebuild_cache.dir
-/home/youwuyou/Workspaces/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/edit_cache.dir
-/home/youwuyou/Workspaces/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/mdatom.dir
-/home/youwuyou/Workspaces/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/mdatomLib.dir
+/Users/limingjie/SPaCS/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/mdatomLib.dir
+/Users/limingjie/SPaCS/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/mdatom.dir
+/Users/limingjie/SPaCS/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/edit_cache.dir
+/Users/limingjie/SPaCS/Analysis-of-MD-trajectories/mdatom-master/build/CMakeFiles/rebuild_cache.dir

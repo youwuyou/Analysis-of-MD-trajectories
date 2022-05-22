@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/mdatom.dir/main.cpp.o"
+  "CMakeFiles/mdatom.dir/main.cpp.o.d"
   "mdatom"
   "mdatom.pdb"
 )
