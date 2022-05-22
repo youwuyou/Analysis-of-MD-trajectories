@@ -30,3 +30,17 @@ do
 
 done
 #COMMENT
+
+echo "#timesteps  time" > task2_time_direct
+
+for numatm in 1000 2000 4000 10000 20000 50000 70000 100000 1000000 
+do
+
+	printf "${numatm}" >> task2_time_direct
+	
+	awk 'NR == 69 { 
+  		print " " $8
+  		}' fluctuation_average_${numatm} >> task2_time_direct
+  		
+
+done
