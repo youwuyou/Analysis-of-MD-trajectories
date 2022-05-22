@@ -1,6 +1,9 @@
 #include <MDSimulation.h>
 #include <iostream>
 
+#include <CorrelationExtension.h>
+#include <ParameterIO.h>
+
 /*!
  * main function.
  * The program expects one argument for the input file (parameters), one optional argument for
@@ -37,12 +40,15 @@ int main(int argc, char *argv[]) {
 
 
     // STAGE 2:computation of the correlation functions
-    // MDParameters par = ParameterIO::readParameters(parameterFile); // todo redundant? or type everything in manually?
+    MDParameters par = ParameterIO::readParameters(parameterFile); // todo redundant? or type everything in manually?
 
-    // CorrelationCalculator C_Calculator(par.numMDSteps, par.numberAtoms, par.timeStep);
-    // CorrelationCalculator C_Calculator(par.numMDSteps, par.numberAtoms, par.timeStep / par.trajectoryOutputINterval);
+    CorrelationCalculator C_Calculator(par.numberMDSteps, par.numberAtoms, par.timeStep);
+    // CorrelationCalculator C_Calculator(par.numberMDSteps, par.numberAtoms, par.timeStep / par.trajectoryOutputInterval);
 
+    C_Calculator.readInCorrelation();
 
+    C_Calculator.computeCorrelation_direct();
+    C_Calculator.computeCorrelation_FFT();
 
 
     return 0;

@@ -7,8 +7,10 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <exception>
 #include "TrajectoryFileWriter.h"
 #include "BinaryIO.h"
+
 
 
 class CorrelationCalculator{
@@ -17,7 +19,8 @@ class CorrelationCalculator{
 
         CorrelationCalculator(int steps, int N, double delta_t): numMDSteps(steps), numberAtoms(N), timeStep(delta_t){
 
-            // TODO using read-in function to initialize the data
+            // using read-in function to initialize the data
+            Mat = Eigen::MatrixXd::Zero(numberAtoms * 3, numMDSteps);
 
             // C_direct storing the final result
             C_direct.setZero(numMDSteps); // #entries = #positions with property v recorded
@@ -36,8 +39,12 @@ class CorrelationCalculator{
 
 
         // read-in
-        // TODO implement a wrapper reading in the velocities from the velocities.traj file
+        // implement a wrapper reading in the velocities from the velocities.traj file
+        void readInCorrelation();
 
+        void getDataFromFile(std::vector<double>& data_x,
+                                    std::vector<double>& data_y,
+                                        std::vector<double>& data_z);
 
         // read-out
         void writeOutCorrelation(const Eigen::VectorXd &C, std::string filename);
@@ -63,12 +70,13 @@ class CorrelationCalculator{
         Eigen::VectorXd Cx_FFT;
         Eigen::VectorXd Cy_FFT;
         Eigen::VectorXd Cz_FFT;
+        Eigen::VectorXd divisor;
 
 
         // data
-        Eigen::MatrixXd X;   // dimension:   (3 * numberAtoms) x numMDSteps
-                             // data matrix storing a certain type of property
-                             // for all items at all time steps
+        Eigen::MatrixXd Mat;   // dimension:   (numberAtoms * 3) x numMDSteps
+                               // data matrix storing a certain type of property
+                               // for all items at all time steps
 
 
         /******* private methods ********/

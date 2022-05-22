@@ -35,6 +35,9 @@ public:
     // extension
     void writeOutVelocityStep(const std::vector<double> &velocities);
 
+    void writeOutVelocityCwise(const std::vector<double> &velocities);
+
+
 
 private:
     void writeFinalCoordinatesInBinaryForm(const std::vector<double> &positions, const std::vector<double> &velocities);
