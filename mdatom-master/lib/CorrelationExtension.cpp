@@ -5,7 +5,7 @@
 // formula 49 - x is some property stored in a matrix while the MD program is running
 void CorrelationCalculator::computeCorrelation_direct(){
 
-    std::cout << "calculating correlation directly" << std::endl;
+    std::cout << "  Calculating correlation directly" << std::endl;
     // looping through all steps
     double S;
     for(int n = 0; n < numMDSteps; ++n){
@@ -26,7 +26,7 @@ void CorrelationCalculator::computeCorrelation_direct(){
 
 void CorrelationCalculator::computeCorrelation_FFT(){
 
-    std::cout << "calculating correlation using FFT" << std::endl;
+    std::cout << "  Calculating correlation using FFT" << std::endl;
 
     // looping through all atoms
     for(int k = 0; k < numberAtoms; ++k){
@@ -48,7 +48,7 @@ void CorrelationCalculator::computeCorrelation_FFT(){
 // implement a wrapper reading in the velocities from the velocities.traj file
 void CorrelationCalculator::readInCorrelation(){
 
-    std::cout << "Read in data from files storing velocities during MD" << std::endl;
+    //std::cout << "Read in data from files storing velocities during MD" << std::endl;
 
     int lines = numberAtoms * numMDSteps;
     std::vector<double> data_x(lines), data_y(lines), data_z(lines); // vector storing points to 3 raw data arrays
@@ -67,7 +67,7 @@ void CorrelationCalculator::readInCorrelation(){
 
     // store matrices X, Y, Z blockwise using a big data matrix "Mat"
     Mat << X, Y, Z;
-    std::cout << "successfully initialized the big data matrix" << std::endl;
+    //std::cout << "successfully initialized the big data matrix" << std::endl;
 
 }
 
@@ -101,7 +101,7 @@ void CorrelationCalculator::getDataFromFile(std::vector<double>& data_x,
         }
 
 
-    std::cout << "read in the data" << std::endl;
+    //std::cout << "read in the data" << std::endl;
 
 
     // read in the data
@@ -119,7 +119,7 @@ void CorrelationCalculator::writeOutCorrelation(const Eigen::VectorXd &C, std::s
     std::ofstream fileFW;
 
     // debugging
-    std::cout << "writting out correlations to txt file" << std::endl;
+    //std::cout << "writting out correlations to txt file" << std::endl;
 
     fileFW.open(filename, std::ios::out | std::ios::app);
     if (fileFW.bad()) {
