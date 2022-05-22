@@ -10,12 +10,6 @@ double Calculator::getAverage(int m) const{
 }
 
 
-double Calculator::getAverage_slow(const std::vector<double>& x) const{
-    double S = std::accumulate(x.begin(), x.end(), 0.0);
-    return S/numMDSteps;
-}
-
-
 double Calculator::getFluctuation(int m) const{
     if(accurate){
         return getFluctuation_accurate(m);
@@ -24,16 +18,6 @@ double Calculator::getFluctuation(int m) const{
     }
 }
 
-
-double Calculator::getFluctuation_slow(const std::vector<double>& x) const{
-    double Q = 0.;
-    double av = getAverage_slow(x);
-    int size = x.size();
-    for(int i = 0; i < size; ++i){
-        Q += (x[i]-av)*(x[i]-av);
-    }
-    return std::sqrt(Q/(numMDSteps-1));
-}
 
 void Calculator::computeAverageFluctuation(double x_i, int m){
 

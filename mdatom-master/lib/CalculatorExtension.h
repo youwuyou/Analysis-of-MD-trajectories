@@ -25,11 +25,8 @@ public:
 
     // Getters - given index of properties obtain corres. property entry
     double getAverage(int m) const;
-    double getAverage_slow(const std::vector<double>& x) const;
 
     double getFluctuation(int m) const;
-    double getFluctuation_slow(const std::vector<double>& x) const;
-
 
     // computation wrapper for each step
     void computeAverageFluctuation(double x_i, int m);
@@ -60,7 +57,7 @@ private:
 
     /******* private methods ********/
     void inaccurate_fluctuation(double x_i, int m); // formula 42
-    void accurate_fluctuation(double x_i, int m);   // formula 43, 45 - pair[0]: average, pair[1]:fluctuation
+    void accurate_fluctuation(double x_i, int m);   // formula 43, 45
 
     // internal getters - used for getFluctuation
     double getFluctuation_inaccurate(int m) const;
