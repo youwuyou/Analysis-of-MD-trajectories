@@ -40,7 +40,7 @@ void CorrelationCalculator::computeCorrelation_FFT(){
     C_FFT = (  Cx_FFT
              + Cy_FFT
              + Cz_FFT ).cwiseQuotient(divisor);  // adding up contribution in each direction
-                          // divide up by coefficients
+                                                 // divide up by coefficients
 }
 
 
