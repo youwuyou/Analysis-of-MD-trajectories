@@ -29,6 +29,8 @@ fstream
 -
 iomanip
 -
+exception
+-
 TrajectoryFileWriter.h
 /home/youwuyou/Workspaces/Analysis-of-MD-trajectories/mdatom-master/lib/TrajectoryFileWriter.h
 BinaryIO.h

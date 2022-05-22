@@ -18,6 +18,10 @@ public:
     //     out    - output stream
     //     array  - source array
     static void write(std::ostream &out, const std::vector<double> &array);
+
+
+    // extended
+    static void readPtr(std::istream &in, double* &array, size_t length);
 };
 
 

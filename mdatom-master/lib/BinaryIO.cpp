@@ -9,3 +9,8 @@ void BinaryIO::write(std::ostream &out, const std::vector<double> &array) {
     size_t length = array.size();
     out.write(reinterpret_cast<const char *>(array.data()), length * sizeof(double));
 }
+
+
+void BinaryIO::readPtr(std::istream &in, double* &array, size_t length) {
+    in.read(reinterpret_cast<char *>(array), length * sizeof(double));
+}
