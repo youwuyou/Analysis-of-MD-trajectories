@@ -15,7 +15,7 @@ do
 	sed -i '' -e "s/\_NumberMDSteps\_/${numatm}/g" params
 	sed -i '' -e "s/\_NumberPrintOutput\_/${numatm}/g" params
 	sed -i '' -e "s/\_TimeStep\_/${dt}/g" params
-	./mdatom params > fluctuation_average_${numatm}	
+	./mdatom params coords.init > fluctuation_average_${numatm}	
 
 done
 

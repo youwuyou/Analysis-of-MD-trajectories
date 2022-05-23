@@ -39,7 +39,7 @@ do
 
 	printf "${numatm}" >> task2_time_direct
 	
-	awk 'NR == 187 { 
+	awk 'NR == 186 { 
   		print " " $10
   		}' fluctuation_average_${numatm} >> task2_time_direct
   		
@@ -55,7 +55,7 @@ do
 
 	printf "${numatm}" >> task2_time_FFT
 	
-	awk 'NR == 189 { 
+	awk 'NR == 188 { 
   		print " " $10
   		}' fluctuation_average_${numatm} >> task2_time_FFT
   		
