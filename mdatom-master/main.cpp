@@ -4,6 +4,7 @@
 #include <CorrelationExtension.h>
 #include <ParameterIO.h>
 
+#include <chrono>
 /*!
  * main function.
  * The program expects one argument for the input file (parameters), one optional argument for
@@ -40,19 +41,26 @@ int main(int argc, char *argv[]) {
 
 
     // STAGE 2:computation of the correlation functions
-    MDParameters par = ParameterIO::readParameters(parameterFile); // todo redundant? or type everything in manually?
+    MDParameters par = ParameterIO::readParameters(parameterFile);
 
     CorrelationCalculator C_Calculator(par.numberMDSteps, par.numberAtoms, par.timeStep);
-    // CorrelationCalculator C_Calculator(par.numberMDSteps, par.numberAtoms, par.timeStep / par.trajectoryOutputInterval);
-
-    C_Calculator.readInCorrelation();
 
     // computation to be benchmarked
+    std::cout << std::endl;
+    std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
     C_Calculator.computeCorrelation_direct();
-    C_Calculator.computeCorrelation_FFT();
+    std::chrono::system_clock::time_point stop = std::chrono::system_clock::now();
+    auto duration_ms = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+    std::cout << "  Timer spent for computing correlation function using direct method: " << duration_ms << " microsec" << std::endl;
 
-    // print out result
-    C_Calculator.printCorrelation();
+    start = std::chrono::system_clock::now();
+    C_Calculator.computeCorrelation_FFT();
+    stop = std::chrono::system_clock::now();
+    duration_ms = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
+    std::cout << "  Timer spent for computing correlation function using FFT method: " << duration_ms << " microsec" << std::endl;
+
+    // write out result to disk
+    C_Calculator.writeOutCorrelation();
 
 
     return 0;

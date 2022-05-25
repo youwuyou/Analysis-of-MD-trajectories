@@ -16,7 +16,7 @@ class Calculator{
 public:
 
     Calculator(int numberMDSteps, int numberProperties): index(2), numMDSteps(numberMDSteps),
-                 /*numberProperties(numberProperties),*/ accurate(false), duration_ns(0.)
+                                                         accurate(false), duration_ns(0.)
     {
         S.setZero(numberProperties);
         Q.setZero(numberProperties);
@@ -46,12 +46,11 @@ private:
     /******* private parameters ********/
     int index;
     int numMDSteps;
-    //int numberProperties;
     bool accurate;
     Eigen::VectorXd S;
     Eigen::VectorXd Q;
     Eigen::VectorXd Ssq; // sum of pow(x_i,2)
-    // std::chrono::system_clock::time_point tStart1, tEnd1;
+
     double duration_ns;
 
 

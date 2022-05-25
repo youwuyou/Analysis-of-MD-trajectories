@@ -1,22 +1,22 @@
 # Title
-Test 5, 1000 atoms
+Sample input file
 #                 NumberAtoms                 AtomicMass                     MDType
-                         1000                          1                          0
+                         1000                         1                          1
 #                  BoxSize(x)                 BoxSize(y)                 BoxSize(z)
                        10.436                     10.436                     10.436
 #               NumberMDSteps                InitialTime                   TimeStep
-               _NumberMDSteps_                        10                      0.005
+                        10000                          0                      0.005
 #          InitialTemperature          TargetTemperature    TemperatureCouplingTime
-                            0                     120.27                        0.1
+                       120.27                     120.27                        0.1
 #                  RandomSeed
                      10021988
 #            XVInitialization  CoordInitializationSpread              FinalXVOutput
-                            3                          0                          1
+                            0                          0                          1
 #          NAtomsOnBoxEdge(x)         NAtomsOnBoxEdge(y)         NAtomsOnBoxEdge(z)
                            10                         10                         10
 #                   EpsilonLJ                    SigmaLJ    InteractionCutoffRadius
                             1                          1                        2.5
 #    PropertyPrintingInterval    NumberRadialDistrPoints    RadialDistrCutoffRadius
-          _NumberPrintOutput_                        100                        2.5
+                            1                        100                        2.5
 #            TrajectoryOutput     TrajectoryOutputFormat   TrajectoryOutputInterval
-                            1                          2                          5
+                            1                          2                          1

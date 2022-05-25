@@ -55,11 +55,10 @@ void Calculator::inaccurate_fluctuation(double x_i, int m){
 }
 
 void Calculator::accurate_fluctuation(double x_i, int m){
-    // Q(m) += std::pow((S(m)-(index-1)*x_i),2)/(index*(index-1));
+
     Q(m) += (S(m)-(index-1)*x_i) * (S(m)-(index-1)*x_i) /(index*(index-1));
 
     S(m) += x_i;
-    // std::cout << "step: " << index << " with Q_m = " << Q(m) << std::endl;
 }
 
 

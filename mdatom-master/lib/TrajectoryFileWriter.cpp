@@ -165,6 +165,10 @@ void TrajectoryFileWriter::writeOutVelocityCwise(const std::vector<double> &velo
             fileY << velocities[i+1]<< endl;
             fileZ << velocities[i+2]<< endl;
         }
+
+    fileX.close();
+    fileY.close();
+    fileZ.close();
 }
 
 /****************  PRIVATE *****************/
