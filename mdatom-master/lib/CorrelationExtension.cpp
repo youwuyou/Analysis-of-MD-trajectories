@@ -96,14 +96,11 @@ void CorrelationCalculator::writeOutCorrelation(){
 
 
 
-<<<<<<< HEAD
 /****************  PRIVATE *****************/
 
 // Input
 void CorrelationCalculator::readInRAM(){
 
-=======
->>>>>>> 86390039240d984364b0c9592c4fa0e75a23346e
     //std::cout << "Read in data from files storing velocities during MD" << std::endl;
 
     int lines = numberAtoms * numMDSteps;
