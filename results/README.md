@@ -1,17 +1,9 @@
 ## TASK 1
 
-parameter file is the one from ex06
-
-- accurate.out
-
-set calculator mode to true
-
-
-
-
-- inaccurate.out
-
-set calculator mode to false
+- plotting performance for the two approaches to compute the fluctuations
 
 
 ## TASK 2
+
+- plotting performance for the two approaches to compute the correlation function
+- plotting result of the computed VAC
