@@ -10,10 +10,14 @@ This repository contains the codes for the student project of the course [FS22 S
 
 - Content: Analysis of MD trajectories
     - Computation of correlation functions using direct method and FFT
-- Duration:  12.04 - 24.05.2022
+- Duration:  12.04 - 25.05.2022
 - Presentation:  31.05.2022
 
 ➡️ for more see *[Project Wiki](https://github.com/youwuyou/Analysis-of-MD-trajectories/wiki)*
+
+### Announcements
+:newspaper:	 1st version has been released! [25.05.2022]
+
 
 ### Contributors
 
