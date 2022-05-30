@@ -24,6 +24,7 @@ class CorrelationCalculator{
         // computation
         void computeCorrelation_direct();
         void computeCorrelation_FFT();
+        void computeCorrelation_FFT(bool complete);
 
         Eigen::VectorXd getC_i(const Eigen::VectorXd& v);  // helper for formula 53
 

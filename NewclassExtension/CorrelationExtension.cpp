@@ -29,11 +29,10 @@ CorrelationCalculator::CorrelationCalculator(int steps, int n, double stepsize):
 
 
 // formula 49 - x is some property stored in a matrix while the MD program is running
-
 void CorrelationCalculator::computeCorrelation_direct(){
 
-    std::cout << "calculating correlation directly" << std::endl;
-
+    std::cout << "  Calculating correlation directly" << std::endl;
+    // looping through all steps
     double S;
 
     // looping through all steps
@@ -74,10 +73,10 @@ Eigen::VectorXd CorrelationCalculator::getC_i(const Eigen::VectorXd& v) {
 }
 
 
-
+// computing just the x components
 void CorrelationCalculator::computeCorrelation_FFT(){
 
-    std::cout << "calculating correlation using FFT" << std::endl;
+    std::cout << "  Calculating correlation using FFT" << std::endl;
 
     // looping through all atoms
     for(int k = 0; k < numberAtoms; ++k){
@@ -87,6 +86,24 @@ void CorrelationCalculator::computeCorrelation_FFT(){
         C_FFT /= C_FFT(0);   // normalization
 
 }
+
+// computing all 3 components
+// using dummy boolean variable for different signature
+void CorrelationCalculator::computeCorrelation_FFT(bool complete){
+
+    std::cout << "  Calculating correlation using FFT" << std::endl;
+
+    // looping through all atoms
+    // now the bound of the iterations is up to the Mat.cols() == 3 * numberAtoms
+    for(int k = 0; k < 3 * numberAtoms; ++k){
+        C_FFT += getC_i(Mat.row(k).transpose());
+    }
+        C_FFT = C_FFT.cwiseQuotient(divisor);
+        C_FFT /= C_FFT(0);   // normalization
+
+}
+
+
 
 
 
@@ -102,7 +119,7 @@ void CorrelationCalculator::writeOutCorrelation(){
 // Input
 void CorrelationCalculator::readInRAM(){
 
-    std::cout << "Read in data from files storing velocities during MD" << std::endl;
+    //std::cout << "Read in data from files storing velocities during MD" << std::endl;
 
     int lines = numberAtoms * numMDSteps;
     std::vector<double> data_x(lines), data_y(lines), data_z(lines); // vector storing points to 3 raw data arrays
@@ -119,7 +136,8 @@ void CorrelationCalculator::readInRAM(){
 
     // store matrices X, Y, Z blockwise using a big data matrix "Mat"
     Mat << X, Y, Z;
-    std::cout << "successfully initialized the big data matrix" << std::endl;
+    //std::cout << "successfully initialized the big data matrix" << std::endl;
+
 }
 
 
@@ -147,7 +165,7 @@ void CorrelationCalculator::getDataFromFile(std::vector<double>& data_x,
         }
 
 
-    std::cout << "read in the data" << std::endl;
+    //std::cout << "read in the data" << std::endl;
 
     std::size_t lines = data_x.size();
 
@@ -165,7 +183,7 @@ void CorrelationCalculator::writeToDisk(const Eigen::VectorXd &C, std::string fi
     std::ofstream fileFW;
 
     // debugging
-    std::cout << "writting out correlations to txt file" << std::endl;
+    //std::cout << "writting out correlations to txt file" << std::endl;
 
     fileFW.open(filename, std::ios::out | std::ios::app);
     if (fileFW.bad()) {

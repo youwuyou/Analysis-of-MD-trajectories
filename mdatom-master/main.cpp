@@ -53,8 +53,10 @@ int main(int argc, char *argv[]) {
     auto duration_ms = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
     std::cout << "  Timer spent for computing correlation function using direct method: " << duration_ms << " microsec" << std::endl;
 
+    bool complete = true;
+
     start = std::chrono::system_clock::now();
-    C_Calculator.computeCorrelation_FFT();
+    C_Calculator.computeCorrelation_FFT(complete);     // passing dummy value "bool complete" to enable computation for all 3 components
     stop = std::chrono::system_clock::now();
     duration_ms = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
     std::cout << "  Timer spent for computing correlation function using FFT method: " << duration_ms << " microsec" << std::endl;

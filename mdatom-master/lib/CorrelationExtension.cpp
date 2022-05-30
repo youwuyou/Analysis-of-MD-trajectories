@@ -73,7 +73,7 @@ Eigen::VectorXd CorrelationCalculator::getC_i(const Eigen::VectorXd& v) {
 }
 
 
-
+// computing just the x components
 void CorrelationCalculator::computeCorrelation_FFT(){
 
     std::cout << "  Calculating correlation using FFT" << std::endl;
@@ -86,6 +86,24 @@ void CorrelationCalculator::computeCorrelation_FFT(){
         C_FFT /= C_FFT(0);   // normalization
 
 }
+
+// computing all 3 components
+// using dummy boolean variable for different signature
+void CorrelationCalculator::computeCorrelation_FFT(bool complete){
+
+    std::cout << "  Calculating correlation using FFT" << std::endl;
+
+    // looping through all atoms
+    // now the bound of the iterations is up to the Mat.cols() == 3 * numberAtoms
+    for(int k = 0; k < 3 * numberAtoms; ++k){
+        C_FFT += getC_i(Mat.row(k).transpose());
+    }
+        C_FFT = C_FFT.cwiseQuotient(divisor);
+        C_FFT /= C_FFT(0);   // normalization
+
+}
+
+
 
 
 
